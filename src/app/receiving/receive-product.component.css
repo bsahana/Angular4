@@ -1,0 +1,17 @@
+#orderContents img{
+    height:100px;
+    border:2px solid grey;
+    border-radius: 15px;
+    margin: 10px;
+     background-color: lightseagreen;
+}
+.table-striped {
+   background-color: lightseagreen;
+}
+    
+
+
+.finished-btn {
+   
+    color:white;
+}

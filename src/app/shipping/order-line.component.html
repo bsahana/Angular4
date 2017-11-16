@@ -1,0 +1,9 @@
+
+  <td><input [(ngModel)]="line.picked" class="big-checkbox" type="checkbox"></td>
+  <ng-template #getLocation>
+    <button (click)="getBestLocation(line)" class="btn green-btn">Get best location</button>
+  </ng-template>
+  <span *ngIf="line.locationID; else getLocation">{{line.locationID}}</span>
+  <td>{{line.productID}}</td>
+  <td><img class="product-img" [src]="line.product.imageUrl"></td>
+  <td>{{line.quantity}}</td>
