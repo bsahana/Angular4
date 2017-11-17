@@ -5,5 +5,4 @@ export class Product{
     price:number;
     imageUrl:string;
     featured:boolean
-    
 }

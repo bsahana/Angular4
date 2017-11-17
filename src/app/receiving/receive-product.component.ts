@@ -1,4 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Http } from '@angular/http';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
 import { Product } from "../shared/product";
 
 @Component({
@@ -13,7 +16,7 @@ export class ReceiveProductComponent implements OnInit {
   private receivedProducts;
   private productID;
   private quantity;
-  constructor() { }
+  constructor(private _http:Http) { }
 
   ngOnInit() {
     this.receivedProducts = [];
@@ -25,6 +28,13 @@ export class ReceiveProductComponent implements OnInit {
   }
   
   receiveProduct(productID, quantity) {
+    this._http
+      .get(`/api/products/${productID}`)
+      .subscribe(
+        res => { console.log(res.json()) },
+        err => { console.log(err) }
+      );
+    
     this.receivedProducts.push({productID, quantity});
     this.productID = "";
     this.quantity = "";

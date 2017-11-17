@@ -1,4 +1,7 @@
 import { ActivatedRoute } from '@angular/router';
+import { Http } from '@angular/http';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/map';
 
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Order } from "../shared/order";
@@ -31,7 +34,7 @@ import { Product } from "../shared/product";
 export class ShipOrderComponent implements OnInit {
   private order: Order;
 
-  constructor(private _route: ActivatedRoute) { }
+  constructor(private _route: ActivatedRoute, private _http:Http) { }
 
   ngOnInit() {
     this.order = new Order();
@@ -75,17 +78,31 @@ export class ShipOrderComponent implements OnInit {
   }
   
   getBestLocation(orderLine) {
-    orderLine.locationID = "01A1A";
-    console.log(orderLine);
+    this._http
+      .get(`/api/locations/forProduct/${orderLine.productID}`)
+      .subscribe(
+        res => {orderLine.locationID = res.json()[0].locationID,
+        err => {console.error(err)}
+      });
   }
   
   markAsShipped(order){
     order.status=1;
-    console.log(order);
+    this._http
+      .patch(`/api/orders/${order.orderID}/MarkAsShipped`, {})
+      .subscribe(
+        res => {console.log(res)},
+        err => {console.error(err)}
+      );
   }
   
   markWithProblem(order){
     order.status=2;
-    console.log(order);
+    this._http
+      .patch(`/api/orders/${order.orderID}/MarkAsProblem`, {})
+      .subscribe(
+        res => {console.log(res)},
+        err => {console.error(err)}
+      );
   }
 }

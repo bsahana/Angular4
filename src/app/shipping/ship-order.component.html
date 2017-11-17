@@ -55,7 +55,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor= "let line of order.lines" nw-order-line [line]="line">
+      <tr *ngFor= "let line of order.lines" (getLocationEvent)="getBestLocation($event)" nw-order-line [line]="line">
       </tr>
     </tbody>
   </table>

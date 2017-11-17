@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Input, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: '[nw-order-line]',
@@ -10,9 +10,16 @@ export class OrderLineComponent implements OnInit {
   @Input()
   private line;
   
+  @Output()
+  getLocationEvent = new EventEmitter();
+  
   constructor() { }
 
   ngOnInit() {
+  }
+  
+  getBestLocation(line) {
+    this.getLocationEvent.emit(line)
   }
 
 }
